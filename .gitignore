@@ -1,0 +1,55 @@
+/.pgdata
+/.vscode
+# dependencies
+/frontend/node_modules
+/frontend/.pnp
+/frontend/.pnp.js
+
+# testing
+/frontend/coverage
+
+# production
+/frontend/build
+
+# misc
+/frontend/.DS_Store
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# Ignore git directory.
+/.git/
+
+# Ignore bundler config.
+/backend/.bundle
+
+# Ignore all environment files (except templates).
+/frontend/.env*
+/backend/.env*
+!/backend/.env.example
+!/frontend/.env.example
+
+# Ignore all default key files.
+/backend/config/master.key
+/backend/config/credentials/*.key
+
+# Ignore all logfiles and tempfiles.
+/backend/log/*
+/backend/tmp/*
+!/backend/log/.keep
+!/backend/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/backend/tmp/pids/*
+!/backend/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/backend/storage/*
+!/backend/storage/.keep
+/backend/tmp/storage/*
+!/backend/tmp/storage/.keep
