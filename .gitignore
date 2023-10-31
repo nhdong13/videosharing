@@ -43,6 +43,8 @@
 /backend/tmp/*
 !/backend/log/.keep
 !/backend/tmp/.keep
+/backend/.byebug_history
+/backend/public/coverage
 
 # Ignore pidfiles, but keep the directory.
 /backend/tmp/pids/*
