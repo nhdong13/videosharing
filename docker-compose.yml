@@ -52,6 +52,13 @@ services:
     ports:
       - '8020:8020'
 
+  app:
+    build: ./videosharing-fe
+    ports:
+      - '9000:9000'
+    volumes:
+    - ./videosharing-fe:/app
+
 volumes:
   videosharing-postgres:
   videosharing-redis:
