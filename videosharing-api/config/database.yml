@@ -5,16 +5,16 @@ default: &default
 
 development:
   <<: *default
-  database: videosharing_dev
-  username: postgres
-  password: postgres
-  host: localhost
-  port: 5432
+  url: <%= ENV['DATABASE_URL'] + '_development' %>
 
 test:
   <<: *default
-  database: videosharing_test
+  url: <%= ENV['DATABASE_URL'] + '_test' %>
+
+staging:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] + '_staging' %>
 
 production:
   <<: *default
-  database: videosharing_production
+  url: <%= ENV['DATABASE_URL'] + '_production' %>
