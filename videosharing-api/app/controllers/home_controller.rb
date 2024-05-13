@@ -1,4 +1,4 @@
-class Api::HomeController < Api::ApplicationController
+class HomeController < ApplicationController
   def index
     @videos = Video.all
 
