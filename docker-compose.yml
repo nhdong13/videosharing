@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:14.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports: 
+      - '5432:5432'
+    volumes:
+      - videosharing-postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.0
+    ports:
+      - '6379:6379'
+    volumes:
+      - videosharing-redis:/var/lib/redis/data
+
+  api:
+    build: ./videosharing-api
+    volumes:
+      - ./videosharing-api:/opt/app/videosharing-api
+    links:
+      - postgres
+      - redis
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./videosharing-api/.env
+    depends_on:
+      - postgres
+      - redis
+
+  sidekiq:
+    build: ./videosharing-api
+    command: bundle exec sidekiq 
+    links:
+      - postgres
+      - redis
+    env_file:
+      - ./videosharing-api/.env
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    links:
+      - api
+    ports:
+      - '8020:8020'
+
+volumes:
+  videosharing-postgres:
+  videosharing-redis:
