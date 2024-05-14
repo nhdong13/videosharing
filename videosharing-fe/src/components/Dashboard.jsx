@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { getVideos } from '../lib/common';
+import React from 'react';
 import VideoItem from './VideoItem';
 import { useVideos } from '../lib/customHooks';
 
 const Dashboard = () => {
-  const [video, setVideo] = useState({});
-
   const { videos } = useVideos();
 
   return (

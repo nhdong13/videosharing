@@ -28,7 +28,6 @@ export function useUser() {
   return { user, authenticated };
 }
 
-
 export function useVideos() {
   const [videos, setVideos] = useState([]);
 
