@@ -38,3 +38,14 @@ export async function getAuthenticatedUser() {
     return defaultReturnObject;
   }
 }
+
+export async function getVideos() {
+  const defaultReturnObject = { videos: [] };
+  try {
+    const { data } = await callApi('GET', API_ROUTES.GET_VIDEOS);
+    return { data };
+  } catch (err) {
+    console.log('getAuthenticatedUser, Something Went Wrong', err);
+    return defaultReturnObject;
+  }
+}

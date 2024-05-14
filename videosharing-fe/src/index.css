@@ -9,3 +9,13 @@
   width: max-content;
   min-width: 300px;
 }
+
+.Dashboard {
+  padding-top: 8rem;
+}
+
+@media (min-width: 768px) {
+  .Dashboard {
+    text-align: -webkit-center;
+  }
+}

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'videos/create'
   scope :api do
     scope :v1 do
       root 'home#index'
@@ -10,6 +11,8 @@ Rails.application.routes.draw do
         delete 'sign_out', to: 'sessions#signout'
         get    'auth/me',  to: 'sessions#me'
       end
+
+      post 'videos', to: 'videos#create'
     end
   end
 end

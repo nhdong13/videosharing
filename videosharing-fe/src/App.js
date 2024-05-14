@@ -4,6 +4,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { APP_ROUTES } from './utils/constants';
 import Nav from './components/Nav';
+import NewVideo from './components/NewVideo';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path={APP_ROUTES.SIGN_UP} exact element={<SignUp />} />
         <Route path={APP_ROUTES.SIGN_IN} element={<SignIn />} />
         <Route path={APP_ROUTES.DASHBOARD} element={<Dashboard />} />
+        <Route path={APP_ROUTES.NEW_VIDEO} element={<NewVideo />} />
       </Routes>
     </div>
   );

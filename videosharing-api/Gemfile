@@ -40,7 +40,6 @@ gem 'redis-rails'
 gem 'dotenv'
 gem 'devise'
 gem 'simple_token_authentication'
-gem 'active_model_serializers'
 gem 'rack-cors'
 
 group :development, :test do

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAuthenticatedUser, removeUserFromLocalStorage } from './common';
+import { getAuthenticatedUser, getVideos, removeUserFromLocalStorage } from './common';
 import { APP_ROUTES } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,4 +26,20 @@ export function useUser() {
   }, []);
 
   return { user, authenticated };
+}
+
+
+export function useVideos() {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    async function callGetVideos() {
+      const { data } = await getVideos();
+      setVideos(data.videos);
+    }
+    callGetVideos()
+    // eslint-disable-next-line
+  }, []);
+
+  return { videos };
 }
