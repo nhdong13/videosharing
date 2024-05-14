@@ -1,6 +1,6 @@
 class SessionsController < Devise::SessionsController
   skip_before_action :authenticate_user_from_token, only: :create
-  before_action :load_user_authentication, except: :me
+  before_action :load_user_authentication, only: :create
 
   respond_to :json
 
@@ -15,10 +15,10 @@ class SessionsController < Devise::SessionsController
     invalid_login_attempt
   end
 
-  def destroy
-    if @user.authentication_token == user_params[:authentication_token]
-      sign_out @user
-      @user.update(authentication_token: nil)
+  def signout
+    if current_user.authentication_token
+      sign_out current_user
+      current_user.update(authentication_token: nil)
 
       render json: { message: "Signed out" }, status: 200
     else

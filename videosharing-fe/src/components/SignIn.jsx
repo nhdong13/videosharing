@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { API_ROUTES, APP_ROUTES } from '../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../lib/customHooks';
-import { storeTokenInLocalStorage } from '../lib/common';
+import { storeUserInLocalStorage } from '../lib/common';
 import { callApi } from '../utils/api';
 import Notification from './Notification';
 
@@ -18,41 +18,42 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const defaultError = { heading: '', message: '' };
-  const [error, setError] = useState(defaultError);
+  const [notification, setNotification] = useState({});
 
   const signIn = async () => {
     try {
       const body = { email, password };
       setIsLoading(true);
-      const response = await callApi('POST', API_ROUTES.SIGN_IN, body);
+      const { data } = await callApi('POST', API_ROUTES.SIGN_IN, body);
 
-      if (!response?.user?.authentication_token) {
-        errorHandler({ heading: 'Something went wrong during signing in:', message: response.message });
+      if (!data?.user?.authentication_token) {
+        notificationHandler({ heading: 'Something went wrong during signing in:', message: data.message });
         return;
       }
-      storeTokenInLocalStorage(response.user.authentication_token);
+      notificationHandler({ heading: 'Success', message: data.message });
+      storeUserInLocalStorage(data.user);
       navigate(APP_ROUTES.DASHBOARD);
     }
     catch (err) {
-      errorHandler({ heading: 'Some error occured during signing in::', message: err.message });
+      notificationHandler({ heading: 'Some error occured during signing in::', message: err.message });
     }
     finally {
       setIsLoading(false);
     }
   };
 
-  const errorHandler = (err) => {
-    setError(err);
+  const defaultNotification = { heading: '', message: '' };
+  const notificationHandler = (nt) => {
+    setNotification(nt);
 
     setTimeout(() => {
-      setError(defaultError);
+      setNotification(defaultNotification);
     }, 5000);
   }
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-800">
-      <Notification heading={error.heading} message={error.message} />
+      <Notification heading={notification.heading} message={notification.message} />
 
       <div className="w-1/2 h-1/2 shadow-lg rounded-md bg-white p-8 flex flex-col">
         <h2 className="text-center font-medium text-2xl mb-4">

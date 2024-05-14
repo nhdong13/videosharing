@@ -12,7 +12,6 @@ const SignUp = () => {
   const [lastname, setLastname] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-
   const signUp = async () => {
     try {
       setIsLoading(true);
