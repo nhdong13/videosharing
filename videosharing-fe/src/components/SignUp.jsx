@@ -3,30 +3,29 @@ import axios from 'axios';
 import { useState } from 'react';
 import { API_ROUTES, APP_ROUTES } from '../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
+import { callApi } from '../utils/api';
+import Notification from './Notification';
 
 const SignUp = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
+  const [confirmation, setConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState({});
 
   const signUp = async () => {
     try {
       setIsLoading(true);
-      const response = await axios({
-        method: 'POST',
-        url: API_ROUTES.SIGN_UP,
-        data: {
-          email,
-          password,
-          firstname,
-          lastname
-        }
-      });
-      if (!response?.data?.token) {
-        console.log('Something went wrong during signing up: ', response);
+      const body = {
+        email,
+        password,
+        confirmation_password: confirmation
+      }
+      const { data } = await callApi('POST', API_ROUTES.SIGN_UP, body);
+      if (!data?.user) {
+        const errMsg = Object.keys(data.message).map(key => `${key} ${data.message[key][0]}`).join(', ')
+        notificationHandler({ heading: 'Something went wrong during signing up: ', message: errMsg });
         return;
       }
       navigate(APP_ROUTES.SIGN_IN);
@@ -39,27 +38,24 @@ const SignUp = () => {
     }
   };
 
+  const defaultNotification = { heading: '', message: '' };
+  const notificationHandler = (nt) => {
+    setNotification(nt);
+
+    setTimeout(() => {
+      setNotification(defaultNotification);
+    }, 5000);
+  }
+
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-800">
+      <Notification heading={notification.heading} message={notification.message} />
+
       <div className="w-1/2 h-3/4 shadow-lg rounded-md bg-white p-8 flex flex-col">
         <h2 className="text-center font-medium text-2xl mb-4">
           Sign Up
         </h2>
         <div className="flex flex-1 flex-col justify-evenly">
-          <input
-            className="border-2 outline-none p-2 rounded-md"
-            type="email"
-            placeholder="First Name"
-            value={firstname}
-            onChange={(e) => { setFirstname(e.target.value); }}
-          />
-          <input
-            className="border-2 outline-none p-2 rounded-md"
-            type="email"
-            placeholder="Last Name"
-            value={lastname}
-            onChange={(e) => { setLastname(e.target.value); }}
-          />
           <input
             className="border-2 outline-none p-2 rounded-md"
             type="email"
@@ -70,8 +66,14 @@ const SignUp = () => {
           <input
             className="border-2 outline-none p-2 rounded-md"
             type="password"
-            placeholder="*******" value={password}
+            placeholder="Password" value={password}
             onChange={(e) => { setPassword(e.target.value); }}
+          />
+          <input
+            className="border-2 outline-none p-2 rounded-md"
+            type="password"
+            placeholder="Confirmation password" value={confirmation}
+            onChange={(e) => { setConfirmation(e.target.value); }}
           />
 
           <button

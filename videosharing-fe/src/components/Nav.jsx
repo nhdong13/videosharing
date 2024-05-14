@@ -78,12 +78,12 @@ const Nav = () => {
             <div className="text-sm lg:flex-grow"></div>
             <div>
               <Link to="/signin">
-                <button className="justify-center p-6 py-2 rounded-md self-center bg-gray-800  text-white hover:bg-gray-800">
+                <button className="justify-center p-6 py-2 rounded-md self-center text-gray-600  bg-white hover:text-gray-900">
                   Sign In
                 </button>
               </Link>
               <Link to="/signup">
-                <span className="w-full font-medium text-gray-800 ml-1">
+                <span className="w-full text-white ml-1">
                   Sign Up
                 </span>
               </Link>
