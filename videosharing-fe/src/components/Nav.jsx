@@ -6,6 +6,7 @@ import { API_ROUTES, APP_ROUTES } from '../utils/constants';
 import { getTokenFromLocalStorage, removeUserFromLocalStorage, getUserMailFromLocalStorage } from '../lib/common';
 
 const Nav = () => {
+  // eslint-disable-next-line
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") != null ? true : false);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +41,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-800 text-white p-4">
+    <nav className="fixed w-full flex items-center justify-between flex-wrap bg-gray-800 text-white p-4">
       <div className="flex items-centear flex-shrink-0 text-white mr-6">
         <Link to="/" className='contents'>
           <HomeIcon />
@@ -48,12 +49,12 @@ const Nav = () => {
         </Link>
       </div>
 
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div className="w-auto block flex-grow lg:flex lg:items-center">
         {token ?
           <React.Fragment>
             <div className="text-sm lg:flex-grow">
-              <Link to="/signup">
-                <span className="w-full font-medium text-gray-800 ml-1">
+              <Link to="/new-movie">
+                <span className="w-full font-medium">
                   Share a movie
                 </span>
               </Link>

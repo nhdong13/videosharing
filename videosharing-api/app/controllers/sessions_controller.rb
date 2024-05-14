@@ -8,7 +8,7 @@ class SessionsController < Devise::SessionsController
     if @user.valid_password? user_params[:password]
       sign_in @user, store: false
 
-      render json: { message: "Signed in successfully", user: UserSerializer.new(@user) }, status: 200
+      render json: { message: "Signed in successfully", user: @user }, status: 200
       return
     end
 
@@ -28,7 +28,7 @@ class SessionsController < Devise::SessionsController
 
   def me
     if current_user
-      render json: { signed_in: true, user: UserSerializer.new(current_user) }
+      render json: { signed_in: true, user: current_user }
     else
       render json: { signed_in: false }
     end

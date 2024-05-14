@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
-  def index
-    @videos = Video.all
+  skip_before_action :authenticate_user_from_token
 
-    render json: { videos: @videos, status: :ok }
+  def index
+    @videos = Video.includes(:user).all.order(created_at: :desc)
+
+    render json: { videos: @videos.as_json(methods: [:user]), status: :ok }
   end
 end
