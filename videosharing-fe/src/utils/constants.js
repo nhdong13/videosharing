@@ -1,5 +1,7 @@
 const API_URL = 'http://localhost:3000/api/v1'
 
+export const CHANNEL_URL = 'ws://localhost:3000/cable'
+
 export const API_ROUTES = {
   SIGN_UP: `${API_URL}/sign_up`,
   SIGN_IN: `${API_URL}/sign_in`,

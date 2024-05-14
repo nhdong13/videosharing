@@ -58,7 +58,7 @@ const NewVideo = () => {
     <div className="w-full h-screen flex justify-center items-center bg-gray-800">
       <Notification heading={notification.heading} message={notification.message} />
 
-      <div className="w-3/4 h-1/2 p shadow-lg rounded-md bg-white p-8 flex flex-col">
+      <div className="w-3/4 p shadow-lg rounded-md bg-white p-8 flex flex-col" style={{minHeight: '50%'}}>
         <h2 className="text-center font-medium text-2xl mb-4">
           New Movie
         </h2>
