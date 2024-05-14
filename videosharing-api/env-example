@@ -2,4 +2,5 @@ SECRET_TOKEN=Wa4Kdu6hMt3tYKm4jb9p4vZUuc7jBVFw
 
 DATABASE_URL=postgresql://postgres:postgres@postgres:5432/videosharing
 CACHE_URL=redis://redis:6379/0
+REDIS_URL=redis://redis:6379/1
 JOB_WORKER_URL=redis://redis:6379/0
