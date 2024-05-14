@@ -16,4 +16,19 @@ class VideoTest < ActiveSupport::TestCase
     video = Video.new
     assert_not video.save, "Saved a video without a user"
   end
+
+  test "should have a title" do
+    video = Video.new(user: User.new, description: "Test description", url: "https://www.youtube.com/watch?v=abcdefghijk")
+    assert_not video.save, "Saved a video without a title"
+  end
+
+  test "should have a description" do
+    video = Video.new(user: User.new, title: "Test title", url: "https://www.youtube.com/watch?v=abcdefghijk")
+    assert_not video.save, "Saved a video without a description"
+  end
+
+  test "should have a valid URL format" do
+    video = Video.new(user: User.new, title: "Test title", description: "Test description", url: "invalid_url")
+    assert_not video.save, "Saved a video with an invalid URL format"
+  end
 end
