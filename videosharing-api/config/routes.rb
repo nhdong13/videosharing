@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'videos/create'
+  mount ActionCable.server => '/cable'
+
   scope :api do
     scope :v1 do
       root 'home#index'
