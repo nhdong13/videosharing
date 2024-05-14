@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   private
 
   def current_user
-    @current_user ||= User.find_by authentication_token: request.headers["Authorization"]
+    @current_user ||= User.find_by authentication_token: bearer_token
   end
 
   def authenticate_user_from_token
@@ -20,6 +20,12 @@ class ApplicationController < ActionController::API
   end
 
   def login_invalid
-    render json: { message: "Invalid login" }, status: 200
+    render json: { message: "Incorrect email/password." }, status: 200
   end
+
+  def bearer_token
+    pattern = /^Bearer /
+    header  = request.headers['Authorization']
+    header.gsub(pattern, '') if header && header.match(pattern)
+  end  
 end

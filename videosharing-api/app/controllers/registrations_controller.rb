@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     user = User.new user_params
 
     if user.save
-      render json: { message: "Successfully registered!", user: user }, status: 200
+      render json: { message: "Successfully registered!", user: UserSerializer.new(user) }, status: 200
     else
       warden.custom_failure!
       render json: { message: user.errors.messages }, status: 200
