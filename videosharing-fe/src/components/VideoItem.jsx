@@ -1,18 +1,9 @@
 import React from 'react';
-import YouTube from 'react-youtube';
 import ReactPlayer from 'react-player/youtube';
 
 const VideoItem = (props) => {
   const { video } = props;
-  console.log(video);
 
-  function getVideoThumbnail() {
-    const url = video.url;
-    if (!url) return;
-    var regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})$/i;
-    var match = url.match(regex);
-    return match ? match[1] : null;
-  }
   return (
     <div className="flex p-5 bg-white lg:w-3/4 w-full md:flex-row flex-col">
       <div className='w-full md:w-1/2'>
