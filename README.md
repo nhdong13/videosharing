@@ -31,7 +31,12 @@ Before you begin, ensure you have the following software installed:
 
 3. At `videosharing` directory, run:
     ```bash
+    docker build -t videosharing -f Dockerfile .
     docker-compose build
+    ```
+  
+4. Start the server:
+    ```bash
     docker-compose up
     ```
 
