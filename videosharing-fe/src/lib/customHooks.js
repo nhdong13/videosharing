@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAuthenticatedUser } from './common';
+import { getAuthenticatedUser, removeUserFromLocalStorage } from './common';
 import { APP_ROUTES } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,9 @@ export function useUser() {
     async function getUserDetails() {
       const { user } = await getAuthenticatedUser();
       if (!user) {
+        setUser(null);
+        setAutenticated(false);
+        removeUserFromLocalStorage();
         navigate(APP_ROUTES.SIGN_IN);
         return;
       }
@@ -19,6 +22,7 @@ export function useUser() {
       setAutenticated(true);
     }
     getUserDetails();
+    // eslint-disable-next-line
   }, []);
 
   return { user, authenticated };

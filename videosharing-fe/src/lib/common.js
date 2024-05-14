@@ -1,12 +1,22 @@
 import { callApi } from '../utils/api';
 import { API_ROUTES } from '../utils/constants';
-import axios from 'axios';
-export function storeTokenInLocalStorage(token) {
-  localStorage.setItem('token', token);
+
+export function storeUserInLocalStorage(data) {
+  localStorage.setItem('token', data.authentication_token);
+  localStorage.setItem('email', data.email);
 }
 
 export function getTokenFromLocalStorage() {
   return localStorage.getItem('token');
+}
+
+export function getUserMailFromLocalStorage() {
+  return localStorage.getItem('email');
+}
+
+export function removeUserFromLocalStorage() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('email');
 }
 
 export async function getAuthenticatedUser() {
@@ -16,8 +26,11 @@ export async function getAuthenticatedUser() {
     if (!token) {
       return defaultReturnObject;
     }
-    const response = await callApi('GET', API_ROUTES.GET_USER, {}, token);
-    const { user } = response;
+    const { data } = await callApi('GET', API_ROUTES.GET_USER, {}, token);
+    const { user } = data;
+    if (!user) {
+      removeUserFromLocalStorage();
+    }
 
     return { user };
   } catch (err) {
