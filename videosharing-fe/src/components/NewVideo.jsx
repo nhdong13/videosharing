@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { API_ROUTES, APP_ROUTES } from '../utils/constants';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Redirect, Navigate } from 'react-router-dom';
 import { callApi } from '../utils/api';
 import Notification from './Notification';
 import { getTokenFromLocalStorage } from '../lib/common';
@@ -15,6 +15,10 @@ const NewVideo = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState({});
   const token = getTokenFromLocalStorage();
+
+  if (!token) {
+    return <Navigate to={APP_ROUTES.SIGN_IN} state={{ from: APP_ROUTES.NEW_VIDEO }} replace />
+  }
 
   const createVideo = async () => {
     try {
